@@ -41,7 +41,7 @@
 | shipping_fee_burden_id     | integer    | null: false                    | <!-- 配送について(配送料の負担) -->
 | shipping_prefecture_id     | integer    | null: false                    | <!-- 配送について(prefecture,県,発送元の地域) -->
 | scheduled_shipping_date_id | integer    | null: false                    | <!-- 配送について(発送までの日数)(=scheduled delivery,発送予定日,発送日の目安) -->
-
+| purchase_record_id         | references | null: false, foreign_key: true | <!-- (商品)と(購入記録)を紐付ける為のカラム -->
 
 ### Association
 
