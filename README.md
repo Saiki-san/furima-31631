@@ -3,15 +3,18 @@
 
 ## users テーブル(ユーザー情報)[ユーザー管理機能]
 
-| Column             | Type   | Options     |
-| -------------------| ------ | ----------- |
-| nickname           | string | null: false | <!-- ニックネーム -->
-| email              | string | null: false | <!-- メールアドレス -->
-| password           | string | null: false | <!-- パスワード -->
-| firstname_kanji    | string | null: false | <!-- 苗字(全角) -->
-| lastname_kanji     | string | null: false | <!-- 名前(全角) -->
-| firstname_katakana | string | null: false | <!-- 苗字(全角カタカナ) -->
-| lastname_katakana  | string | null: false | <!-- 名前(全角カタカナ) -->
+| Column             | Type    | Options     |
+| -------------------| ------- | ----------- |
+| nickname           | string  | null: false | <!-- ニックネーム -->
+| email              | string  | null: false | <!-- メールアドレス -->
+| encrypted_password | string  | null: false | <!-- パスワード -->
+| firstname_kanji    | string  | null: false | <!-- 苗字(全角) -->
+| lastname_kanji     | string  | null: false | <!-- 名前(全角) -->
+| firstname_katakana | string  | null: false | <!-- 苗字(全角カタカナ) -->
+| lastname_katakana  | string  | null: false | <!-- 名前(全角カタカナ) -->
+| birth_date_y       | integer | null: false | <!-- 誕生日(年) -->
+| birth_date_m       | integer | null: false | <!-- 誕生日(月) -->
+| birth_date_d       | integer | null: false | <!-- 誕生日(日) -->
 
 ### Association
 
@@ -24,18 +27,20 @@
 
 ## items テーブル(商品情報)(商品出品機能)
 
-| Column                  | Type       | Options                        |
-| ----------------------- | ---------- | ------------------------------ |
-| item_name               | string     | null: false                    | <!-- 商品名 -->
-<!-- | item_image              | ActiveStorage  | null: false | 出品画像 -->
-| item_price              | integer    | null: false                    | <!-- 販売価格 -->
-| item_info               | text       | null: false                    | <!-- 商品の説明 -->
-| user                    | references | null: false, foreign_key: true | <!-- 出品者名(item_seller_name) -->
-| item_category           | string     | null: false                    | <!-- 商品の詳細(カテゴリー) -->
-| item_condition          | string     | null: false                    | <!-- 商品の詳細(sales status,商品の状態) -->
-| shipping_fee_burden     | string     | null: false                    | <!-- 配送について(配送料の負担) -->
-| shipping_prefecture     | string     | null: false                    | <!-- 配送について(prefecture,県,発送元の地域) -->
-| scheduled_shipping_date | string     | null: false                    | <!-- 配送について(発送までの日数)(=scheduled delivery,発送予定日,発送日の目安) -->
+| Column                     | Type       | Options                        |
+| -------------------------- | ---------- | ------------------------------ |
+| item_name                  | string     | null: false                    | <!-- 商品名 -->
+<!-- | item_image                 | ActiveStorage  | null: false | 出品画像 ActiveStorageで実装する！ -->
+| item_price                 | integer    | null: false                    | <!-- 販売価格 -->
+| item_info                  | text       | null: false                    | <!-- 商品の説明 -->
+| user                       | references | null: false, foreign_key: true | <!-- 出品者名(item_seller_name) -->
+<!-- 以下はactiveh_hashにて実装の為、integer型・語尾に_idとする -->
+| item_category_id           | integer    | null: false                    | <!-- 商品の詳細(カテゴリー) -->
+| item_condition_id          | integer    | null: false                    | <!-- 商品の詳細(sales status,商品の状態) -->
+| shipping_fee_burden_id     | integer    | null: false                    | <!-- 配送について(配送料の負担) -->
+| shipping_prefecture_id     | integer    | null: false                    | <!-- 配送について(prefecture,県,発送元の地域) -->
+| scheduled_shipping_date_id | integer    | null: false                    | <!-- 配送について(発送までの日数)(=scheduled delivery,発送予定日,発送日の目安) -->
+
 
 ### Association
 
@@ -51,8 +56,8 @@
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
 | user     | references | null: false, foreign_key: true | <!-- 購入したユーザー -->
-| buy_date | date       | null: false                    | <!-- 購入した年月日 -->
 | item     | references | null: false, foreign_key: true | <!-- 購入された商品 -->
+<!-- | buy_date | date       | null: false                    | 購入した年月日 【不要！！！】-->
 
 ### Association
 - belongs_to :item <!-- 1回の購入記録は、1つの商品につき1カウントだけ -->
@@ -66,15 +71,15 @@
 | Column                | Type    | Options     |
 | --------------------- | ------- | ----------- |
 | postal_code           | integer | null: false | <!-- 配送先(郵便番号) -->
-| prefecture            | string  | null: false | <!-- 配送先(都道府県)わざと単数形名称 -->
-| city                  | string  | null: false | <!-- 配送先(municipalitie市町村) -->
-| address               | string  | null: false | <!-- 配送先(番地) -->
+| prefecture_id         | integer | null: false | <!-- 配送先(都道府県) activeh_hashにて実装の為、integer型・語尾に_idとする-->
+| city                  | string  | null: false | <!-- 配送先(市区町村) -->
+| house_number          | string  | null: false | <!-- 配送先(丁目・番地・号) -->
 | building_name         | string  | ----------- | <!-- 配送先(建物名) -->
-| phone_number          | integer | null: false | <!-- 配送先(電話番号) -->
+| phone_number          | string  | null: false | <!-- 配送先(電話番号) integerだと先頭の0が消えてしまう為、string型とする-->
 
 ### Association
-- has_one :purchase_record <!-- 1つの配送先は、1回の購入記録につき1つ -->
-- has_one :item            <!-- 1つの配送先は、1つの商品につき1つ -->
+- belongs_to :purchase_record <!-- 1つの配送先は、1回の購入記録につき1つ -->
+<!-- - has_one :item            1つの配送先は、1つの商品につき1つ 【不要！！！！】-->
 
 ////////////////////////////////////////////////////////////////////////////////////
 
