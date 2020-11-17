@@ -12,9 +12,10 @@
 | lastname_kanji     | string  | null: false | <!-- 名前(全角) -->
 | firstname_katakana | string  | null: false | <!-- 苗字(全角カタカナ) -->
 | lastname_katakana  | string  | null: false | <!-- 名前(全角カタカナ) -->
-| birth_date_y       | integer | null: false | <!-- 誕生日(年) -->
-| birth_date_m       | integer | null: false | <!-- 誕生日(月) -->
-| birth_date_d       | integer | null: false | <!-- 誕生日(日) -->
+| birth_date         | date    | null: false | <!-- 誕生日(年月日) -->
+<!-- | birth_date_y       | integer | null: false | 誕生日(年) -->
+<!-- | birth_date_m       | integer | null: false | 誕生日(月) -->
+<!-- | birth_date_d       | integer | null: false | 誕生日(日) -->
 
 ### Association
 
@@ -33,7 +34,7 @@
 <!-- | item_image                 | ActiveStorage  | null: false | 出品画像 ActiveStorageで実装する！ -->
 | item_price                 | integer    | null: false                    | <!-- 販売価格 -->
 | item_info                  | text       | null: false                    | <!-- 商品の説明 -->
-| user                       | references | null: false, foreign_key: true | <!-- 出品者名(item_seller_name) -->
+| user_id                    | references | null: false, foreign_key: true | <!-- 出品者名(item_seller_name, nickname) -->
 <!-- 以下はactiveh_hashにて実装の為、integer型・語尾に_idとする -->
 | item_category_id           | integer    | null: false                    | <!-- 商品の詳細(カテゴリー) -->
 | item_condition_id          | integer    | null: false                    | <!-- 商品の詳細(sales status,商品の状態) -->
@@ -55,8 +56,8 @@
 
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
-| user     | references | null: false, foreign_key: true | <!-- 購入したユーザー -->
-| item     | references | null: false, foreign_key: true | <!-- 購入された商品 -->
+| user_id  | references | null: false, foreign_key: true | <!-- 購入したユーザー -->
+| item_id  | references | null: false, foreign_key: true | <!-- 購入された商品 -->
 <!-- | buy_date | date       | null: false                    | 購入した年月日 【不要！！！】-->
 
 ### Association
