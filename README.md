@@ -38,7 +38,6 @@
 | shipping_fee_burden_id     | integer    | null: false                    | <!-- 配送について(配送料の負担) -->
 | shipping_prefecture_id     | integer    | null: false                    | <!-- 配送について(prefecture,県,発送元の地域) -->
 | scheduled_shipping_date_id | integer    | null: false                    | <!-- 配送について(発送までの日数)(=scheduled delivery,発送予定日,発送日の目安) -->
-| purchase_record            | references | null: false, foreign_key: true | <!-- (商品)と(購入記録)を紐付ける為のカラム -->
 
 ### Association
 
@@ -66,14 +65,16 @@
 
 ## shipping_addresses テーブル(住所street_address)[商品購入機能]
 
-| Column                | Type    | Options     |
-| --------------------- | ------- | ----------- |
-| postal_code           | integer | null: false | <!-- 配送先(郵便番号) -->
-| prefecture_id         | integer | null: false | <!-- 配送先(都道府県) activeh_hashにて実装の為、integer型・語尾に_idとする-->
-| city                  | string  | null: false | <!-- 配送先(市区町村) -->
-| house_number          | string  | null: false | <!-- 配送先(丁目・番地・号) -->
-| building_name         | string  | ----------- | <!-- 配送先(建物名) -->
-| phone_number          | string  | null: false | <!-- 配送先(電話番号) integerだと先頭の0が消えてしまう為、string型とする-->
+| Column                | Type       | Options                        |
+| --------------------- | ---------- | ------------------------------ |
+| postal_code           | integer    | null: false                    | <!-- 配送先(郵便番号) -->
+| prefecture_id         | integer    | null: false                    | <!-- 配送先(都道府県) activeh_hashにて実装の為、integer型・語尾に_idとする-->
+| city                  | string     | null: false                    | <!-- 配送先(市区町村) -->
+| house_number          | string     | null: false                    | <!-- 配送先(丁目・番地・号) -->
+| building_name         | string     | ----------- -------------------| <!-- 配送先(建物名) -->
+| phone_number          | string     | null: false                    | <!-- 配送先(電話番号) integerだと先頭の0が消えてしまう為、string型とする-->
+| purchase_record       | references | null: false, foreign_key: true | <!-- (商品)と(購入記録)を紐付ける為のカラム -->
+
 
 ### Association
 - belongs_to :purchase_record <!-- 1つの配送先は、1回の購入記録につき1つ -->
