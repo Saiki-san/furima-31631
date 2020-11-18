@@ -10,10 +10,7 @@ FactoryBot.define do
 
     birth_date{19300101}
 
-    # password = Faker::Internet.password(min_length: 6)
-    password              {Faker::Internet.password(min_length: 6)}
-    # password              {password}
+    password              {Faker::Internet.password(min_length: 4)+ "1a"} #Fakerではまれに英字のみ、数字のみの場合があるため後ろに"1a"など付け加える！。
     password_confirmation {password}
   end
 end
-# user = FactoryBot.build(:user)

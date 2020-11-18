@@ -4,21 +4,11 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
-  # pending "add some examples to (or delete) #{__FILE__}"
 
   describe '#create(ユーザー新規登録)' do
     context '新規登録がうまくいくとき' do
       it "nicknameとemail、lastnameとfirstname、lastname_readingとlastname_reading、
           passwordとpassword_confirmationが存在すれば登録できる" do
-        expect(@user).to be_valid
-      end
-      # it "nicknameが6文字以下で登録できる" do
-      #   @user.nickname = "aA1あア安"
-      #   expect(@user).to be_valid
-      # end
-      it "passwordが英数字6文字以上であれば登録できる" do
-        @user.password = "a0a0a0"
-        @user.password_confirmation = "a0a0a0"
         expect(@user).to be_valid
       end
     end
@@ -39,6 +29,11 @@ RSpec.describe User, type: :model do
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
         another_user.valid?
+      end
+      it "emailに@が含まれていない場合登録できない" do
+        @user.email = "abcdefg"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it "passwordが空では登録できない" do
         @user.password = ""
