@@ -8,10 +8,10 @@
 | nickname           | string  | null: false | <!-- ニックネーム -->
 | email              | string  | null: false | <!-- メールアドレス -->
 | encrypted_password | string  | null: false | <!-- パスワード -->
-| firstname_kanji    | string  | null: false | <!-- 苗字(全角) -->
-| lastname_kanji     | string  | null: false | <!-- 名前(全角) -->
-| firstname_katakana | string  | null: false | <!-- 苗字(全角カタカナ) -->
-| lastname_katakana  | string  | null: false | <!-- 名前(全角カタカナ) -->
+| firstname          | string  | null: false | <!-- first名前(全角) -->
+| lastname           | string  | null: false | <!-- last苗字(全角) -->
+| firstname_reading  | string  | null: false | <!-- first名前(全角カタカナ) -->
+| lastname_reading   | string  | null: false | <!-- last苗字(全角カタカナ) -->
 | birth_date         | date    | null: false | <!-- 誕生日(年月日) -->
 
 ### Association
