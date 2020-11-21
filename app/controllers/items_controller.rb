@@ -1,8 +1,10 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :new]
+  before_action :move_to_session, only: [:new]
+
   def index
-    # @items = Item.all
+    @items = Item.all
   end
 
   def new
@@ -10,10 +12,13 @@ class ItemsController < ApplicationController
   end
 
   def create
-    # user = User.create(user_params)
-    # Address.create(address_params(user))
-    # Donation.create(donation_params(user))
-    # redirect_to action: :index
+    @item = Item.new(item_params)
+    # binding.pry
+    if @item.valid? && @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def show
@@ -48,19 +53,25 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(
-      :item_name,              :item_price,                 :item_info,
-      :item_category_id,       :item_condition_id,          :shipping_fee_burden_id,
-      :shipping_prefecture_id, :scheduled_shipping_date_id, :item_image
-    )
+      :name,          :price,                 :info,
+      :category_id,   :sales_status_id,       :shipping_fee_status_id,
+      :prefecture_id, :scheduled_delivery_id, :image
+    ).merge(user_id: current_user.id)
   end
 
-  def set_item
-    @item = Item.find(params[:id])
-  end
+  # def set_item
+  #   @item = Item.find(params[:id])
+  # end
 
   def move_to_index
     unless user_signed_in?
       redirect_to action: :index
+    end
+  end
+
+  def move_to_session
+    unless user_signed_in?
+      redirect_to new_user_session_path
     end
   end
 end

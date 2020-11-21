@@ -25,24 +25,29 @@
 
 ## items テーブル(商品情報)(商品出品機能)
 
-| Column                     | Type       | Options                        |
-| -------------------------- | ---------- | ------------------------------ |
-| item_name                  | string     | null: false                    | <!-- 商品名 -->
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| name                   | string     | null: false                    | <!-- 商品名 -->
 <!-- | item_image                 | ActiveStorage  | null: false | 出品画像 ActiveStorageで実装する！ -->
-| item_price                 | integer    | null: false                    | <!-- 販売価格 -->
-| item_info                  | text       | null: false                    | <!-- 商品の説明 -->
-| user                       | references | null: false, foreign_key: true | <!-- 出品者名(item_seller_name, nickname) -->
+| price                  | integer    | null: false                    | <!-- 販売価格 -->
+| info                   | text       | null: false                    | <!-- 商品の説明 -->
+| user                   | references | null: false, foreign_key: true | <!-- 出品者名(item_seller_name, nickname) -->
 <!-- 以下はactiveh_hashにて実装の為、integer型・語尾に_idとする -->
-| item_category_id           | integer    | null: false                    | <!-- 商品の詳細(カテゴリー) -->
-| item_condition_id          | integer    | null: false                    | <!-- 商品の詳細(sales status,商品の状態) -->
-| shipping_fee_burden_id     | integer    | null: false                    | <!-- 配送について(配送料の負担) -->
-| shipping_prefecture_id     | integer    | null: false                    | <!-- 配送について(prefecture,県,発送元の地域) -->
-| scheduled_shipping_date_id | integer    | null: false                    | <!-- 配送について(発送までの日数)(=scheduled delivery,発送予定日,発送日の目安) -->
+| category_id            | integer    | null: false                    | <!-- 商品の詳細(カテゴリー) -->
+| sales_status_id        | integer    | null: false                    | <!-- 商品の詳細(sales status,商品の状態) -->
+| shipping_fee_status_id | integer    | null: false                    | <!-- 配送について(配送料の負担) -->
+| prefecture_id          | integer    | null: false                    | <!-- 配送について(shipping_prefecture,県,発送元の地域) -->
+| scheduled_delivery_id  | integer    | null: false                    | <!-- 配送について(発送までの日数)(=scheduled delivery,発送予定日,発送日の目安) -->
 
 ### Association
 
 - belongs_to :user             <!-- 1つの(出品された)商品は、1人のユーザーによって出品される -->
 - has_one    :purchase_record  <!-- 1つの(出品された)商品は、1つの購入記録 -->
+- belongs_to :category
+- belongs_to :sales_status
+- belongs_to :shipping_fee_status
+- belongs_to :prefecture
+- belongs_to :scheduled_delivery
 <!-- - has_many   :comments         1つの(出品された)商品は、たくさんのコメントを持つ -->
 <!-- - has_many   : -->
 

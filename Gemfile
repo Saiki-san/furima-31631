@@ -61,6 +61,14 @@ group :production do
   gem 'rails_12factor'
 end
 
+# devese導入
 gem 'devise'
+
 gem 'pry-rails'
+
+# ActiveHash導入
 gem 'active_hash'
+
+# Active Strage
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
