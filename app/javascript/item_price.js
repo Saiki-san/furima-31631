@@ -1,5 +1,4 @@
 window.addEventListener('load', () => {
-  // console.log("非同期投稿を実装");
   const priceInput = document.getElementById("item-price"); // priceInputは、「場所」
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value; // inputValueは、数値(priceInputを、.Valueに！)

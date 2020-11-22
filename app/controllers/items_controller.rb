@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show]
   before_action :move_to_index, except: [:index, :show, :new]
-  before_action :move_to_session, only: [:new]
+  # before_action :move_to_session, only: [:new]
+  before_action :authenticate_user!, only: [:new]
 
   def index
     @items = Item.all
@@ -69,9 +70,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  def move_to_session
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
-  end
+  # def move_to_session
+  #   unless user_signed_in?
+  #     redirect_to new_user_session_path
+  #   end
+  # end
 end

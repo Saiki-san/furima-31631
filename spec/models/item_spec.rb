@@ -36,17 +36,17 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price Half-width number")
       end
       it "priceが300未満だと登録できない" do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
       it "priceが1000万以上だと登録できない" do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
       it "infoが空だと登録できない" do
-        @item.info = nil
+        @item.info = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Info can't be blank")
       end
@@ -60,8 +60,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category Select")
       end
+      it "category_idが0(---)だと登録できない" do
+        @item.category_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category Select")
+      end
       it "sales_status_idが空だと登録できない" do
         @item.sales_status_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Sales status Select")
+      end
+      it "sales_status_idが0(---)だと登録できない" do
+        @item.sales_status_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Sales status Select")
       end
@@ -70,13 +80,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping fee status Select")
       end
+      it "shipping_fee_status_idが0(---)だと登録できない" do
+        @item.shipping_fee_status_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping fee status Select")
+      end
       it "prefecture_idが空だと登録できない" do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture Select")
       end
+      it "prefecture_idが0(---)だと登録できない" do
+        @item.prefecture_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture Select")
+      end
       it "scheduled_delivery_idが空だと登録できない" do
         @item.scheduled_delivery_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Scheduled delivery Select")
+      end
+      it "scheduled_delivery_idが0(---)だと登録できない" do
+        @item.scheduled_delivery_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Scheduled delivery Select")
       end
