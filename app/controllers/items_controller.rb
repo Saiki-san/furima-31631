@@ -1,11 +1,10 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show]
   before_action :move_to_index, except: [:index, :show, :new]
-  # before_action :move_to_session, only: [:new]
   before_action :authenticate_user!, only: [:new]
 
   def index
-    @items = Item.all
+    @items = Item.all.order("created_at DESC") # .order("created_at DESC")id大きい順(最近出品順)
   end
 
   def new
@@ -70,6 +69,8 @@ class ItemsController < ApplicationController
     end
   end
 
+  # before_action :authenticate_user!, only: [:new]の記述により、下記は不要！！
+  # before_action :move_to_session, only: [:new]
   # def move_to_session
   #   unless user_signed_in?
   #     redirect_to new_user_session_path
