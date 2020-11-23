@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update, :destroy]
-  # before_action :move_to_index, except: [:index, :show, :new, :edit]
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
 
   def index
     @items = Item.all.order("created_at DESC") # .order("created_at DESC")id大きい順(最近出品順)
@@ -38,7 +37,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if user_signed_in? && (current_user.id == @item.user.id)
+    if current_user.id == @item.user.id
       @item.destroy
     end
     redirect_to root_path
