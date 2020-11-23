@@ -33,7 +33,7 @@
           <p class='or-text'>or</p>
           <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
         <%# end %>
-      <% elsif current_user.id != @item.user_id %>
+      <% else %>
         <%# 商品が売れていない場合はこちらを表示しましょう %>
         <%# if (購入記録が存在していなかったら(空だったら) %>
         <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
@@ -109,7 +109,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <a href="#" class='another-item'><%= "商品のカテゴリー名" %>をもっと見る</a>
+  <a href="#" class='another-item'><%= @item.category.name %>をもっと見る</a> <%# "商品のカテゴリー名" %>
 </div>
 
 <%= render "shared/footer" %>
