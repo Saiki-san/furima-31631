@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:edit, :show, :update]
+  before_action :set_item, only: [:edit, :show, :update, :destroy]
   before_action :move_to_index, except: [:index, :show, :new, :edit]
   before_action :authenticate_user!, only: [:new, :edit]
 
@@ -13,7 +13,6 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    # binding.pry
     if @item.valid? && @item.save
       redirect_to root_path
     else
@@ -39,8 +38,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
-    item.destroy
+    @item.destroy
+    redirect_to root_path
   end
 
   private
@@ -74,12 +73,4 @@ class ItemsController < ApplicationController
       redirect_to action: :index
     end
   end
-
-  # before_action :authenticate_user!, only: [:new]の記述により、下記は不要！！
-  # before_action :move_to_session, only: [:new]
-  # def move_to_session
-  #   unless user_signed_in?
-  #     redirect_to new_user_session_path
-  #   end
-  # end
 end
