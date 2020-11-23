@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:edit, :show]
+  before_action :set_item, only: [:edit, :show, :update]
   before_action :move_to_index, except: [:index, :show, :new, :edit]
   before_action :authenticate_user!, only: [:new, :edit]
 
@@ -25,15 +25,12 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if user_signed_in?
-      if (current_user.id != @item.user.id) #|| (「もし選択した商品に紐づく購入記録が存在していたら（空ではなかったら）)
-        redirect_to root_path
-      end
+    if (current_user.id != @item.user.id) #|| (「もし選択した商品に紐づく購入記録が存在していたら（空ではなかったら）)
+      redirect_to root_path
     end
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path(@item.id)
     else
