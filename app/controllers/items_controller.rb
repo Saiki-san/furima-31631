@@ -20,6 +20,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+    # binding.pry
+    # @order = Order.new
+    # @orders = @item.orders.includes(:user)
   end
 
   def edit
@@ -44,18 +47,6 @@ class ItemsController < ApplicationController
   end
 
   private
-
-  # def user_params
-  #   params.permit(:nickname, :lastname, :firstname, :lastname_reading, :firstname_reading)
-  # end
-
-  # def address_params(user)
-  #   params.permit(:postal_code, :prefecture, :city, :house_number, :building_name).merge(user_id: user.id)
-  # end
-
-  # def donation_params(user)
-  #   params.permit(:price).merge(user_id: user.id)
-  # end
 
   def item_params
     params.require(:item).permit(

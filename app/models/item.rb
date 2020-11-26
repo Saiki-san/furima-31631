@@ -1,16 +1,17 @@
 class Item < ApplicationRecord
   # アソシエーション
   belongs_to :user             # 1つの(出品された)商品は、1人のユーザーによって出品される
-  has_one    :purchase_record  # 1つの(出品された)商品は、1つの購入記録
-  has_one_attached :image # 1つの(出品された)商品は、1つの商品画像をもつ
+  has_one    :order            # 1つの(出品された)商品は、1つの購入記録
+  has_one_attached :image      # 1つの(出品された)商品は、1つの商品画像をもつ
 
-  extend ActiveHash::Associations::ActiveRecordExtensions
+  extend ActiveHash::Associations::ActiveRecordExtensions # ActiveHashを用いて、belongs_toを設定。module取り込み
   belongs_to :prefecture          # 1つの(出品された)商品は、1つの住所(発信元・配送先)
   belongs_to :category            # 1つの(出品された)商品は、1つのカテゴリー
   belongs_to :sales_status        # 1つの(出品された)商品は、1つの商品状態
   belongs_to :shipping_fee_status # 1つの(出品された)商品は、1つの配送料負担
   belongs_to :scheduled_delivery  # 1つの(出品された)商品は、1つの配送予定日
 
+  # バリデーション
   with_options presence: true do
     validates :name                    # 商品名
     validates :price, numericality: { only_integer: true, message: "Half-width number"} # 販売価格(数字のみ。少数不可)
@@ -26,7 +27,6 @@ class Item < ApplicationRecord
     end
   end
   validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range"} # 販売価格(300<=●<=999万9999)
-
 
   # def was_attached?
   #   self.image.attached?
