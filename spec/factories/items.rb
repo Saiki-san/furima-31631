@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
     name      {Faker::Name.name}      # "商品名"
-    price    {1000}                   # "価格"
+    price     {1000}                  # "価格"
     info      {Faker::Lorem.sentence} # "説明"
     user_id                {1} # "ユーザーid"
     category_id            {1} # "カテゴリー"
