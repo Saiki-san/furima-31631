@@ -1,7 +1,11 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index] # authenticate_user!メソッドは、未ログインユーザーをログインフォームに遷移させる！
 
   def index
     @item = Item.find(params[:item_id])
+    if @item.order || current_user.id == @item.user_id
+      redirect_to root_path
+    end
     @token_address_order = TokenAddressOrder.new
   end
 

@@ -25,13 +25,13 @@
     <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう(メモ) %>
     <% if user_signed_in? %> <%# まずは、ログインしているか %>
       <% if current_user.id == @item.user_id %> <%# ログインユーザーが商品出品者と同じであれば %>
-        <% if @item.order != true %> <%# (購入記録が存在していなかったら(空だったら・まだ売れていなければ) %>
+        <% unless @item.order %> <%# (購入記録が存在していなかったら(空だったら・まだ売れていなければ) %>
           <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
           <p class='or-text'>or</p>
           <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
         <% end %>
       <% else %> <%# ログインユーザーが商品出品者と違うユーザーであれば %>
-        <% if @item.order != true %> <%# (購入記録が存在していなかったら(空だったら・まだ売れていなければ) %>
+        <% unless @item.order %> <%# (購入記録が存在していなかったら(空だったら・まだ売れていなければ) %>
         <%= link_to '購入画面に進む', item_orders_path(params[:id]) ,class:"item-red-btn"%>
         <% end %>
       <% end %>

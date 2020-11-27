@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :destroy] # authenticate_user!メソッドは、未ログインユーザーをログインフォームに遷移させる！
+
+
 
   def index
     @items = Item.all.order("created_at DESC") # .order("created_at DESC")id大きい順(最近出品順)
