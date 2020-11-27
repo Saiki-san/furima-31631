@@ -1,8 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update, :destroy]
 
-
-
   def index
     @items = Item.all.order("created_at DESC") # .order("created_at DESC")id大きい順(最近出品順)
     # @items = Item.includes(:order).order("created_at DESC") → モデル名.includes(:紐付くモデル名) N+1だと紐付いていないとき、エラーが発生する(メモ)
