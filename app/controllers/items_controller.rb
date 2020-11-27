@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all.order("created_at DESC") # .order("created_at DESC")id大きい順(最近出品順)
-    # @items = Item.includes(:order).order("created_at DESC") # モデル名.includes(:紐付くモデル名) N+1だと紐付きないときエラーでる
+    # @items = Item.includes(:order).order("created_at DESC") → モデル名.includes(:紐付くモデル名) N+1だと紐付いていないとき、エラーが発生する(メモ)
   end
 
   def new
@@ -22,9 +22,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    # binding.pry
-    # @order = Order.new
-    # @orders = @item.orders.includes(:user)
   end
 
   def edit
@@ -61,10 +58,4 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
-
-  # def move_to_index
-  #   unless user_signed_in?
-  #     redirect_to action: :index
-  #   end
-  # end
 end

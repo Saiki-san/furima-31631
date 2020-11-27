@@ -7,13 +7,25 @@ RSpec.describe TokenAddressOrder, type: :model do
 
   describe '#create(購入機能)' do
     context '購入がうまくいくとき' do
-      it "token、postal_code、prefecture_id、city、
+      it "item_id, user_id, token、postal_code、prefecture_id、city、
         house_number、building_number、phone_number、が存在すれば登録できる" do
         expect(@order).to be_valid
       end
     end
 
     context '購入がうまくいかない' do
+      it "item_idが空では登録できないこと" do
+        @order.item_id = ""
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it "user_idが空では登録できないこと" do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+
       it "トークン(token)が空では登録できないこと" do
         @order.token = nil
         @order.valid?
@@ -95,12 +107,17 @@ RSpec.describe TokenAddressOrder, type: :model do
         expect(@order.errors.full_messages).to include("Phone number Input only number")
       end
 
-      # it "電話番号にはハイフンは不要で、11桁以内であること（09012345678となる）" do
-      #   @order.phone_number = "123456789000"
-      #   @order.valid?
-      #   binding.pry
-      #   expect(@order.errors.full_messages).to include("Phone number Out of setting range")
-      # end
+      it "電話番号にはハイフンは不要で、11桁以内であること（09012345678となる）" do
+        @order.phone_number = "123456789000"
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone number Out of setting range")
+      end
+
+      it "電話番号にはハイフンは不要で、10桁以上であること（0612345678となる）" do
+        @order.phone_number = "123456789"
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone number Out of setting range")
+      end
 
       # ここから下は、システム(system・結合)
       # it "商品購入ページでは、一覧や詳細ページで選択した商品の情報が出力されること" do

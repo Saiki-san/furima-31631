@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :token_address_order do
     # 商品部分
-    # user_id {1}
-    # item_id {1}
+    user_id {1}
+    item_id {1}
 
     # 支払い部分
     # price {3000}                               # "商品価格"

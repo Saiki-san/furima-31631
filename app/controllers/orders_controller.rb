@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:index] # authenticate_user!メソッドは、未ログインユーザーをログインフォームに遷移させる！
-
+  before_action :authenticate_user!, only: [:index, :create] # authenticate_user!メソッドは、未ログインユーザーをログインフォームに遷移させる！
+  before_action :set_item, only: [:index, :create] # createした瞬間に@itemの情報がnilになってしまう(仕様)ので、再定義
   def index
-    @item = Item.find(params[:item_id])
     if @item.order || current_user.id == @item.user_id
       redirect_to root_path
     end
@@ -10,7 +9,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id]) # createした瞬間に@itemの情報がnilになってしまう(仕様)ので、再定義
     @token_address_order = TokenAddressOrder.new(token_address_order_params)
     if @token_address_order.valid?
       pay_item
@@ -40,5 +38,9 @@ class OrdersController < ApplicationController
         card: token_address_order_params[:token],    # カードトークン。cardには、トークン化されたカード情報が入ります。
         currency: 'jpy' # 通貨の種類（日本円）。currencyには取引に使用する通貨の種類を記述（今回は日本円を指定）。
       )
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
