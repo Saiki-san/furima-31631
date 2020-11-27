@@ -4,9 +4,11 @@ class User < ApplicationRecord
   devise:database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
+  # アソシエーション
   has_many :items            # 1人のユーザーは、たくさんの商品を出品できる -->
   has_many :purchase_records # 1人のユーザーは、たくさんの商品を購入できる -->
 
+  # バリデーション
   with_options presence: true do
     validates :nickname
     validates :birth_date
