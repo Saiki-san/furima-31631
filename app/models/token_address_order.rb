@@ -22,8 +22,6 @@ class TokenAddressOrder
                               length:      { in: 10..11, message: "Out of setting range"} # (数字が)10こ又は11この時だけ可
   end
 
-  # validates :phone_number, numericality: { length: { maximum: 11 }, message: "Out of setting range"} # (数字が)11こ以下の時だけ可
-
   def save # 保存時のメソッド。(.createは、生成 & 保存！)
     order = Order.create(user_id: user_id, item_id: item_id)
     Address.create( # 住所の情報を保存
