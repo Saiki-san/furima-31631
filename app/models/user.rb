@@ -12,11 +12,11 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :nickname
     validates :birth_date
-    with_options format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "Full-width characters"} do
+    with_options format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "は全角で入力して下さい"} do # "Full-width characters"
       validates :firstname
       validates :lastname
     end
-    with_options format: { with: /\A[ァ-ヶー－]+\z/, message: "Full-width katakana characters"} do
+    with_options format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角(カナ)で入力して下さい"} do # "Full-width katakana characters"
       validates :firstname_reading
       validates :lastname_reading
     end

@@ -74,3 +74,6 @@ gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 
 gem 'payjp'
+
+# 「https://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/ja.yml」に登録されている日本語を使用可能に。
+gem 'rails-i18n'
