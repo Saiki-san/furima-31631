@@ -17,19 +17,19 @@ RSpec.describe TokenAddressOrder, type: :model do
       it "item_idが空では登録できないこと" do
         @order.item_id = ""
         @order.valid?
-        expect(@order.errors.full_messages).to include("Item can't be blank")
+        expect(@order.errors.full_messages).to include("Itemを入力してください") # "Item can't be blank"
       end
 
       it "user_idが空では登録できないこと" do
         @order.user_id = nil
         @order.valid?
-        expect(@order.errors.full_messages).to include("User can't be blank")
+        expect(@order.errors.full_messages).to include("Userを入力してください") # "User can't be blank"
       end
 
       it "トークン(token)が空では登録できないこと" do
         @order.token = nil
         @order.valid?
-        expect(@order.errors.full_messages).to include("Token can't be blank")
+        expect(@order.errors.full_messages).to include("カード情報を入力してください") # "Token can't be blank"
       end
 
       # it "クレジットカード情報は必須であり、正しいクレジットカードの情報で無いときは決済できないこと" do
@@ -50,73 +50,73 @@ RSpec.describe TokenAddressOrder, type: :model do
       it "郵便番号(postal_code)にはハイフン( - )が必要であること(123-4567の形とならなければならない)" do
         @order.postal_code = "1234567"
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code Input correctly")
+        expect(@order.errors.full_messages).to include("郵便番号はハイフンを含む数字7桁で入力して下さい") # "Postal code Input correctly"
       end
 
       it "郵便番号(postal_code)にはハイフン( - )が必要で、始めが3桁でないと不可であること(123-4567の形とならなければならない)" do
         @order.postal_code = "12-3456"
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code Input correctly")
+        expect(@order.errors.full_messages).to include("郵便番号はハイフンを含む数字7桁で入力して下さい") # "Postal code Input correctly"
       end
 
       it "郵便番号(postal_code)にはハイフン( - )が必要で、終わりが4桁でないと不可であること(123-4567の形とならなければならない)" do
         @order.postal_code = "123-45678"
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code Input correctly")
+        expect(@order.errors.full_messages).to include("郵便番号はハイフンを含む数字7桁で入力して下さい") # "Postal code Input correctly"
       end
 
       it "郵便番号(postal_code)が空では購入できない" do
         @order.postal_code = ""
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code can't be blank")
+        expect(@order.errors.full_messages).to include("郵便番号を入力してください") # "Postal code can't be blank"
       end
 
       it "都道府県(prefecture_id)が空では購入できない" do
         @order.prefecture_id = ""
         @order.valid?
-        expect(@order.errors.full_messages).to include("Prefecture Select")
+        expect(@order.errors.full_messages).to include("都道府県を選択して下さい") # "Prefecture Select"
       end
 
       it "都道府県(prefecture_id)が0(---)だと登録できない" do
         @order.prefecture_id = 0
         @order.valid?
-        expect(@order.errors.full_messages).to include("Prefecture Select")
+        expect(@order.errors.full_messages).to include("都道府県を選択して下さい") # "Prefecture Select"
       end
 
       it "市区町村(city)が空では購入できない" do
         @order.city = ""
         @order.valid?
-        expect(@order.errors.full_messages).to include("City can't be blank")
+        expect(@order.errors.full_messages).to include("市区町村を入力してください") #
       end
 
       it "番地(house_number)が空では購入できない" do
         @order.house_number = ""
         @order.valid?
-        expect(@order.errors.full_messages).to include("House number can't be blank")
+        expect(@order.errors.full_messages).to include("番地を入力してください") # "House number can't be blank"
       end
 
       it "電話番号(phone_number)が空では購入できない" do
         @order.phone_number = ""
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number can't be blank")
+        expect(@order.errors.full_messages).to include("電話番号を入力してください") # "Phone number can't be blank"
       end
 
       it "電話番号(phone_number)が数字以外の文字やハイフン( - )が含まれていると購入できない" do
         @order.phone_number = "123-4567890"
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number Input only number")
+        expect(@order.errors.full_messages).to include("電話番号は半角数字で入力して下さい") # "Phone number Input only number"
       end
 
       it "電話番号にはハイフンは不要で、11桁以内であること（09012345678となる）" do
         @order.phone_number = "123456789000"
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number Out of setting range")
+        expect(@order.errors.full_messages).to include("電話番号は10又は11桁の数値で入力して下さい") # "Phone number Out of setting range"
       end
 
       it "電話番号にはハイフンは不要で、10桁以上であること（0612345678となる）" do
         @order.phone_number = "123456789"
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number Out of setting range")
+        expect(@order.errors.full_messages).to include("電話番号は10又は11桁の数値で入力して下さい") # "Phone number Out of setting range"
       end
 
       # ここから下は、システム(system・結合)
@@ -182,3 +182,5 @@ RSpec.describe TokenAddressOrder, type: :model do
     end
   end
 end
+
+# bundle exec rspec spec/models/token_address_order_spec.rb

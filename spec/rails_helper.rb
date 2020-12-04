@@ -31,7 +31,8 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-I18n.locale = "en"
+# テストコードのメッセージを実行した際のエラーメッセージを初期化(デフォルトenを「無」へ)
+# I18n.locale = "en"
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
