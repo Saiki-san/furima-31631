@@ -58,7 +58,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
-  gem 'rails_12factor'
+  # gem 'rails_12factor' # unicorn導入により、不要となった(2020.12.7)
+  gem 'unicorn', '5.4.1'
 end
 
 # devese導入
@@ -81,9 +82,10 @@ gem 'rails-i18n'
 # パンくずの実装
 gem "gretel"
 
-#
+# SNS認証機能
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
 
+# AWS機能
 gem "aws-sdk-s3", require: false
