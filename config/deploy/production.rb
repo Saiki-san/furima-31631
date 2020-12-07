@@ -59,3 +59,6 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
+# Elastic IP # production:本番環境 # staging:ステージング(運用直前)環境 # development:開発環境
+server '13.231.25.92', user: 'ec2-user', roles: %w{app db web}
